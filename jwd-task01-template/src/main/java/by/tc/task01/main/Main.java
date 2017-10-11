@@ -15,9 +15,14 @@ public class Main {
 		ServiceFactory factory = ServiceFactory.getInstance();
 		ApplianceService service = factory.getApplianceService();
 
+
+
+
+
 		//////////////////////////////////////////////////////////////////
 
 		Criteria<Oven> criteriaOven = new Criteria<Oven>();
+		criteriaOven.setAplianceTypeName("Oven");
 		criteriaOven.add(Oven.CAPACITY, 3);
 
 		appliance = service.find(criteriaOven);
@@ -27,6 +32,7 @@ public class Main {
 		//////////////////////////////////////////////////////////////////
 
 		criteriaOven = new Criteria<Oven>();
+		criteriaOven.setAplianceTypeName("Oven");
 		criteriaOven.add(Oven.HEIGHT, 200);
 		criteriaOven.add(Oven.DEPTH, 300);
 
@@ -35,8 +41,9 @@ public class Main {
 		PrintApplianceInfo.print(appliance);
 
 		//////////////////////////////////////////////////////////////////
-		
+
 		Criteria<TabletPC> criteriaTabletPC = new Criteria<TabletPC>();
+		criteriaOven.setAplianceTypeName("TabletPC");
 		criteriaTabletPC.add(TabletPC.COLOR, "BLUE");
 		criteriaTabletPC.add(TabletPC.DISPLAY_INCHES, 14);
 		criteriaTabletPC.add(TabletPC.MEMORY_ROM, 4);
@@ -44,7 +51,8 @@ public class Main {
 		appliance = service.find(criteriaOven);
 
 		PrintApplianceInfo.print(appliance);
-
+		
+		
 	}
 
 }
