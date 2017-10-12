@@ -5,19 +5,19 @@ import java.io.Serializable;
 public class Oven extends Appliance implements Serializable {
 
 	private static final long serialVersionUID = 6318747486283453800L;
-	private Double powerConsumptin;
+	private Double powerConsumption;
 	private Double weight;
 	private Double capacity;
 	private Double depth;
 	private Double height;
 	private Double width;
 
-	public Double getPowerConsumptin() {
-		return powerConsumptin;
+	public Double getPowerConsumption() {
+		return powerConsumption;
 	}
 
-	public void setPowerConsumptin(Double powerConsumptin) {
-		this.powerConsumptin = powerConsumptin;
+	public void setPowerConsumption(Double powerConsumption) {
+		this.powerConsumption = powerConsumption;
 	}
 
 	public Double getWeight() {
@@ -67,7 +67,7 @@ public class Oven extends Appliance implements Serializable {
 		result = prime * result + ((capacity == null) ? 0 : capacity.hashCode());
 		result = prime * result + ((depth == null) ? 0 : depth.hashCode());
 		result = prime * result + ((height == null) ? 0 : height.hashCode());
-		result = prime * result + ((powerConsumptin == null) ? 0 : powerConsumptin.hashCode());
+		result = prime * result + ((powerConsumption == null) ? 0 : powerConsumption.hashCode());
 		result = prime * result + ((weight == null) ? 0 : weight.hashCode());
 		result = prime * result + ((width == null) ? 0 : width.hashCode());
 		return result;
@@ -97,10 +97,10 @@ public class Oven extends Appliance implements Serializable {
 				return false;
 		} else if (!height.equals(other.height))
 			return false;
-		if (powerConsumptin == null) {
-			if (other.powerConsumptin != null)
+		if (powerConsumption == null) {
+			if (other.powerConsumption != null)
 				return false;
-		} else if (!powerConsumptin.equals(other.powerConsumptin))
+		} else if (!powerConsumption.equals(other.powerConsumption))
 			return false;
 		if (weight == null) {
 			if (other.weight != null)
@@ -117,7 +117,7 @@ public class Oven extends Appliance implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Oven [powerConsumptin=" + powerConsumptin + ", weight=" + weight + ", capacity=" + capacity + ", depth="
+		return "Oven [powerConsumption=" + powerConsumption + ", weight=" + weight + ", capacity=" + capacity + ", depth="
 				+ depth + ", height=" + height + ", width=" + width + "]";
 	}
 

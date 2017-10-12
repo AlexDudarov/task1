@@ -6,6 +6,6 @@ import by.tc.task01.entity.Appliance;
 
 public interface ApplianceBuilder {
 	
-	public Appliance build(Map<String, String> dataMap);
+	Appliance build(Map<String, String> dataMap);
 
 }

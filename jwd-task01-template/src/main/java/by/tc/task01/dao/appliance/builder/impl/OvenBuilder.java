@@ -17,7 +17,7 @@ public class OvenBuilder implements ApplianceBuilder {
 		oven.setHeight(height);
 
 		Double powerConsumtion = Double.valueOf(dataMap.get(POWER_CONSUMPTION.toString()));
-		oven.setPowerConsumptin(powerConsumtion);
+		oven.setPowerConsumption(powerConsumtion);
 
 		Double weight = Double.valueOf(dataMap.get(WEIGHT.toString()));
 		oven.setWeight(weight);

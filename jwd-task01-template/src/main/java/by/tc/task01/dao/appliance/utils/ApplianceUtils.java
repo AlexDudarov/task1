@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -25,14 +26,14 @@ public class ApplianceUtils<E> {
 
 	public Appliance createAppliance(Criteria<E> criteria) {
 
-		ApplianceBuilder aplianceBuilder = ApplianceDirector.getInstance().getBuilder(criteria.getAplianceTypeName());
+		ApplianceBuilder applianceBuilder = ApplianceDirector.getInstance().getBuilder(criteria.getAplianceTypeName());
 		String data = findStringInFile(criteria);
 		if (data == null) {
 			System.out.println("We found nothing");
 			return null;
 		} else {
 			Map<String, String> dataMap = Parser.parse(data);
-			Appliance appliance = aplianceBuilder.build(dataMap);
+			Appliance appliance = applianceBuilder.build(dataMap);
 			return appliance;
 		}
 	}
@@ -40,13 +41,19 @@ public class ApplianceUtils<E> {
 	private String findStringInFile(Criteria<E> criteria) {
 
 		String regular = createRegular(criteria);
-		boolean isFind = false;
-		String line = null;
+		boolean isFind;
+		String line;
+		File file;
+			file = getFile();
 
+		if (file==null){
+			System.out.println("file not found");
+			return null;
+		}
 		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(new FileInputStream(getFile()), StandardCharsets.UTF_8))) {
+				new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
 
-			while ((line = reader.readLine()) != null && !isFind) {
+			while ((line = reader.readLine()) != null) {
 				isFind = isFind(regular, line);
 				if (isFind) {
 					return line;
@@ -54,10 +61,6 @@ public class ApplianceUtils<E> {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-
-		} catch (URISyntaxException e1) {
-
-			e1.printStackTrace();
 		}
 
 		return null;
@@ -73,10 +76,21 @@ public class ApplianceUtils<E> {
 
 	}
 
-	private File getFile() throws URISyntaxException {
+	private File getFile() {
+		URL url = this.getClass().getClassLoader().getResource(FILE_NAME);
 
-		File file = new File(this.getClass().getClassLoader().getResource(FILE_NAME).toURI());
-		return file;
+
+		if (url != null) {
+			File file;
+			try {
+				file = new File(url.toURI());
+				return file;
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		return null;
 
 	}
 
@@ -87,7 +101,7 @@ public class ApplianceUtils<E> {
 		StringBuffer sb = new StringBuffer();
 		NumberFormat nf = new DecimalFormat("#.######");
 
-		sb.append("^" + applianceTypeName + "\\s(.*)");
+		sb.append("^").append(applianceTypeName).append( "\\s(.*)");
 		for (Entry<E, Object> criteriaEntry : entrySet) {
 			String key = criteriaEntry.getKey().toString();
 			String value;
@@ -98,7 +112,7 @@ public class ApplianceUtils<E> {
 			} else {
 				value = criteriaEntry.getValue().toString().trim();
 			}
-			sb.append("(?=.*\\b" + key + "=" + value + "((;$)|(,\\s.*)))");
+			sb.append("(?=.*\\b").append(key).append("=").append(value).append("((;$)|(,\\s.*)))");
 		}
 		sb.append("(.*)");
 

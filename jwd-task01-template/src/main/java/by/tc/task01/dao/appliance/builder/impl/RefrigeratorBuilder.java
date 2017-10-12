@@ -26,7 +26,7 @@ public class RefrigeratorBuilder implements ApplianceBuilder {
 		refrigerator.setOverallCapacity(overallCapacity);
 
 		Double powerConsumption = Double.valueOf(dataMap.get(POWER_CONSUMPTION.toString()));
-		refrigerator.setPowerConsumtion(powerConsumption);
+		refrigerator.setPowerConsumption(powerConsumption);
 
 		Double weight = Double.valueOf(dataMap.get(WEIGHT.toString()));
 		refrigerator.setWeight(weight);
